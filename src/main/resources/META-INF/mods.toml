@@ -1,14 +1,14 @@
 modLoader="javafml"
 loaderVersion="[35,)"
 license="All rights reserved"
-issueTrackerURL="https://github.com/jsburger/Clash/issues"
+issueTrackerURL="https://github.com/jsburger/gusts/issues"
 [[mods]]
-    modId="clash"
+    modId="gusts"
     version="${file.jarVersion}"
-    displayName="Clash"
-    authors="Jsburg, Mista Jub, special thanks to Piggy"
+    displayName="Gusts"
+    authors="Jsburg"
     description='''
-    AWESOME WEAPON MOD!!!
+    balloon
     '''
 [[dependencies.clash]]
     modId="forge"
