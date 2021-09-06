@@ -1,10 +1,6 @@
-package com.jsburg.clash;
+package com.jsburg.gusts;
 
-import com.jsburg.clash.event.ClientEvents;
-import com.jsburg.clash.registry.AllEnchantments;
-import com.jsburg.clash.registry.AllItems;
-import com.jsburg.clash.registry.AllParticles;
-import com.jsburg.clash.registry.AllSounds;
+import com.jsburg.gusts.registry.AllEntities;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,21 +22,21 @@ import org.apache.logging.log4j.Logger;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("clash")
-public class Clash
+@Mod("gusts")
+public class Gusts
 {
     // Directly reference a log4j logger.
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final String MOD_ID = "clash";
+    public static final String MOD_ID = "gusts";
 
-    public Clash() {
+    public Gusts() {
 
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        AllItems.ITEMS.register(modEventBus);
-        AllSounds.SOUNDS.register(modEventBus);
-        AllParticles.PARTICLE_TYPES.register(modEventBus);
-        AllEnchantments.ENCHANTMENTS.register(modEventBus);
+        AllEntities.register(modEventBus);
+//        AllSounds.SOUNDS.register(modEventBus);
+//        AllParticles.PARTICLE_TYPES.register(modEventBus);
+//        AllEnchantments.ENCHANTMENTS.register(modEventBus);
 
         modEventBus.addListener(this::setupCommon);
         modEventBus.addListener(this::setupClient);
@@ -48,13 +44,14 @@ public class Clash
     }
 
     private void setupCommon(final FMLCommonSetupEvent event) {
-
+        AllEntities.registerAttributes(event);
     }
 
     private void setupClient(final FMLClientSetupEvent event) {
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ClientEvents::fiddleWithHands);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ClientEvents::doCameraStuff);
-        MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, ClientEvents::doClientTick);
+        AllEntities.registerRenderers(event);
+//        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ClientEvents::fiddleWithHands);
+//        MinecraftForge.EVENT_BUS.addListener(EventPriority.HIGH, ClientEvents::doCameraStuff);
+//        MinecraftForge.EVENT_BUS.addListener(EventPriority.NORMAL, ClientEvents::doClientTick);
     }
 
 }
